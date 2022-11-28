@@ -1,0 +1,58 @@
+﻿@model Infra.Entities.Pergunta
+
+@{
+    var action = ViewContext.RouteData.Values["action"].ToString();
+}
+
+<div class="col-lg-8 col-xlg-9 col-md-7">
+    <div class="card">
+        <!-- Tab panes -->
+        <div class="card-body">
+            <form class="form-horizontal form-material" enctype="multipart/form-data" method="post" asp-action="@action">
+                @if (ViewBag.Edit)
+                {
+                    <input type="hidden" asp-for="PerguntaId" value="@Model.PerguntaId" />
+                    <input type="hidden" asp-for="Ordenacao" value="@Model.Ordenacao" />
+                }
+
+                <div class="form-group">
+                    <label class="col-md-12">Pergunta</label>
+                    <div class="col-md-12">
+                        <input type="text" required autocomplete=off asp-for="Nome" placeholder="" class="form-control form-control-line">
+                    </div>
+                </div>
+
+                 <div class="form-group">
+                    <label class="col-md-12">Resposta</label>
+                    <div class="col-md-12">
+                        <input type="text" required autocomplete=off asp-for="Resposta" placeholder="" class="form-control form-control-line">
+                    </div>
+                </div>
+                  <div class="form-group">
+                    <label class="col-md-12">Texto do link</label>
+                    <div class="col-md-12">
+                        <input type="text" autocomplete=off asp-for="NomeLink" placeholder="" class="form-control form-control-line">
+                    </div>
+                </div>
+                  <div class="form-group">
+                    <label class="col-md-12">Link</label>
+                    <div class="col-md-12">
+                        <input type="text" autocomplete=off asp-for="Link" placeholder="" class="form-control form-control-line">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        @if (ViewBag.Edit)
+                        {
+                            <button class="btn btn-warning">Alterar</button>
+                        }
+                        else
+                        {
+                            <button class="btn btn-success">Gravar</button>
+                        }
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

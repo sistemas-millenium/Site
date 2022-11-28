@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32228.430
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Site", "Site\Site.csproj", "{73C5A390-E881-4004-A096-EEBF3AAE0840}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infra", "Infra", "{4587AFD1-4D9C-40CE-B27F-B9438D6B699E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infra", "Infra\Infra.csproj", "{713E600F-0DAC-4D12-8C61-1DA9B82D0F70}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{73C5A390-E881-4004-A096-EEBF3AAE0840}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73C5A390-E881-4004-A096-EEBF3AAE0840}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73C5A390-E881-4004-A096-EEBF3AAE0840}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73C5A390-E881-4004-A096-EEBF3AAE0840}.Release|Any CPU.Build.0 = Release|Any CPU
+		{713E600F-0DAC-4D12-8C61-1DA9B82D0F70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{713E600F-0DAC-4D12-8C61-1DA9B82D0F70}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{713E600F-0DAC-4D12-8C61-1DA9B82D0F70}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{713E600F-0DAC-4D12-8C61-1DA9B82D0F70}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{713E600F-0DAC-4D12-8C61-1DA9B82D0F70} = {4587AFD1-4D9C-40CE-B27F-B9438D6B699E}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9D174299-D8B5-4ACB-B056-FA4917CE3145}
+	EndGlobalSection
+EndGlobal

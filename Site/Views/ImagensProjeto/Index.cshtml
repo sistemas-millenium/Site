@@ -1,0 +1,113 @@
+﻿@model List<Infra.Entities.ImagemProjeto>
+@inject Infra.Context.Context _context
+@using Microsoft.EntityFrameworkCore;
+
+@{
+    var titulo = "";
+
+    var projetoid = Guid.Empty;
+
+    if (Model.Any())
+    {
+        projetoid = Model.First().ProjetoId;
+
+        titulo = "Imagens de " + _context.Projeto.AsNoTracking().First(x => x.ProjetoId == Model.First().ProjetoId).Titulo;
+    }
+    else
+    {
+        projetoid = (Guid)ViewBag.projetoid;
+
+        titulo = "Imagens de " + _context.Projeto.AsNoTracking().First(x => x.ProjetoId == projetoid).Titulo;
+    }
+}
+<a href="@Url.Action("Create", new{ projetoid = projetoid})">Adicionar imagem</a>
+
+<br />
+<br />
+
+<button class="btn btn-success" onclick="SalvarOrdenacao()">Salvar Ordenação</button>
+
+<br />
+<br />
+
+<button onclick="window.close()" class="btn btn-primary">Voltar aos projetos</button>
+
+<form id="ordenacao" asp-action="SalvarOrdenacao">
+    <input type="hidden" name="projetoid" value="@projetoid" />
+</form>
+
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title">@titulo</h3>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Imagem</th>
+                                <th>Descrição</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var imagem in Model)
+                            {
+                                <tr id="@imagem.ImagemProjetoId">
+                                    <td><a target="_blank" href="@Url.Action("ObterImagem",new{filename = imagem.Caminho, projetoid = imagem.ProjetoId})">Abrir imagem</a></td>
+                                    <td>@imagem.Descricao</td>
+                                    <td>
+                                        <a href="@Url.Action("Edit",new{id = imagem.ImagemProjetoId})" type="button" class="btn btn-warning btn-sm">Editar</a>
+                                        <button type="button" class="btn btn-danger btn-sm" onclick="remover('@imagem.ImagemProjetoId')"><i class="fa fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+
+
+<script>
+    function SalvarOrdenacao()
+    {
+        $('.table > tbody > tr').each(function()
+        {
+            var index = $('.table > tbody > tr').index(this) ;
+
+            $("<input>",{
+                type : "hidden",
+                name: "["+index+"].ImagemProjetoId",
+                value : $(this).attr("id")
+            }).appendTo("#ordenacao");
+
+
+          $("#ordenacao").submit();
+        });
+    }
+
+     function remover(id){
+        if(confirm("tem certeza que deseja deletar?")){
+            $.ajax({
+                url: "@Url.Action("Remover")",
+                data:{
+                    id : id
+                },
+                success: function(){
+                    window.location.reload();
+                },
+                error: function(){
+                    alert("Erro ao excluir");
+                }
+            })
+        }
+    }
+</script>
+}

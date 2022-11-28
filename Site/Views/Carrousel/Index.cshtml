@@ -1,0 +1,89 @@
+﻿@model List<Infra.Entities.Carrossel>
+
+<a href="@Url.Action("Create")">Adicionar imagem</a>
+
+<br />
+<br />
+
+<button class="btn btn-success" onclick="SalvarOrdenacao()">Salvar Ordenação</button>
+
+<form id="ordenacao" asp-action="SalvarOrdenacao">
+</form>
+
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Carrossel</h4>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Imagem</th>
+                                <th>Descrição</th>
+                                <th>Link</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var carrossel in Model)
+                            {
+                                <tr id="@carrossel.CarrosselId">
+                                    <td><a target="_blank" href="@Url.Action("ObterImagem","Home",new{filename = carrossel.Caminho})">Abrir imagem</a></td>
+                                    <td>@carrossel.Descricao</td>
+                                    <td><a href="@carrossel.Link" target="_blank">Abrir link</a></td>
+                                    <td>
+                                        <a href="@Url.Action("Edit",new{id = carrossel.CarrosselId})" type="button" class="btn btn-warning btn-sm">Editar</a>
+                                        <button type="button" class="btn btn-danger btn-sm" onclick="remover('@carrossel.CarrosselId')"><i class="fa fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+
+
+<script>
+    function SalvarOrdenacao()
+    {
+        $('.table > tbody > tr').each(function()
+        {
+            var index = $('.table > tbody > tr').index(this) ;
+
+            $("<input>",{
+                type : "hidden",
+                name: "["+index+"].CarrosselId",
+                value : $(this).attr("id")
+            }).appendTo("#ordenacao");
+
+
+          $("#ordenacao").submit();
+        });
+    }
+
+     function remover(id){
+        if(confirm("tem certeza que deseja deletar?")){
+            $.ajax({
+                url: "@Url.Action("Remover")",
+                data:{
+                    id : id
+                },
+                success: function(){
+                    window.location.reload();
+                },
+                error: function(){
+                    alert("Erro ao excluir");
+                }
+            })
+        }
+    }
+</script>
+}

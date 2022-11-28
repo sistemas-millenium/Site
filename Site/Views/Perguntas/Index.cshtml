@@ -1,0 +1,92 @@
+﻿@model List<Infra.Entities.Pergunta>
+
+<a href="@Url.Action("Create")">Criar Pergunta</a>
+<br />
+<br />
+
+<button class="btn btn-success" onclick="SalvarOrdenacao()">Salvar Ordenação</button>
+
+<form id="ordenacao" asp-action="SalvarOrdenacao">
+</form>
+
+
+<div class="row">
+    <!-- column -->
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Perguntas</h4>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Pergunta</th>
+                                <th>Resposta</th>
+                                <th>Link</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var pergunta in Model)
+                            {
+                                <tr id="@pergunta.PerguntaId">
+                                    <td>@pergunta.Nome</td>
+                                    <td>
+                                        <textarea readonly class="form-control form-control-line" rows="10" cols="40"> @pergunta.Resposta
+                                        </textarea>
+                                    </td>
+                                    <td><a href="@pergunta.Link" target="_blank">abrir</a></td>
+                                    <td>
+                                        <a href="@Url.Action("Edit",new{id = pergunta.PerguntaId})" type="button" class="btn btn-warning btn-sm">Editar</a>
+                                        <button type="button" class="btn btn-danger btn-sm" onclick="remover('@pergunta.PerguntaId')"><i class="fa fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+
+
+<script>
+    function SalvarOrdenacao()
+    {
+        $('.table > tbody > tr').each(function()
+        {
+            var index = $('.table > tbody > tr').index(this) ;
+
+            $("<input>",{
+                type : "hidden",
+                name: "["+index+"].PerguntaId",
+                value : $(this).attr("id")
+            }).appendTo("#ordenacao");
+
+
+          $("#ordenacao").submit();
+        });
+    }
+
+     function remover(id){
+        if(confirm("tem certeza que deseja deletar?")){
+            $.ajax({
+                url: "@Url.Action("Remover","Perguntas")",
+                data:{
+                    id : id
+                },
+                success: function(){
+                    window.location.reload();
+                },
+                error: function(){
+                    alert("Erro ao excluir");
+                }
+            })
+        }
+    }
+</script>
+}

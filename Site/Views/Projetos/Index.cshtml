@@ -1,0 +1,103 @@
+﻿@model List<Infra.Entities.Projeto>
+
+<a href="@Url.Action("Create")">Adicionar Projeto</a>
+
+<br />
+<br />
+
+<button class="btn btn-success" onclick="SalvarOrdenacao()">Salvar Ordenação</button>
+
+<form id="ordenacao" asp-action="SalvarOrdenacao">
+</form>
+
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+
+                <form asp-action="SalvarTitulo" method="post">
+                    <div class="form-group">
+                        <label class="col-md-12">Título de chamada</label>
+                        <div class="col-md-12"> 
+                            <input type="text" required autocomplete="off" value="@ViewBag.Titulo" name="Nome" placeholder="" class="form-control form-control-line">
+                        </div>
+                        <br />
+                        <button class="btn btn-danger" type="submit">Gravar</button>
+                    </div>
+                </form>
+
+                <h4 class="card-title">Projeto</h4>
+
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Imagem</th>
+                                <th>Título</th>
+                                <th>SubTítulo</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var Projeto in Model)
+                            {
+                                <tr id="@Projeto.ProjetoId">
+                                    <td><a target="_blank" href="@Url.Action("ObterImagem","Home",new{filename = Projeto.Caminho})">Abrir imagem</a></td>
+                                    <td>@Projeto.Titulo</td>
+                                    <td>@Projeto.Subtitulo</td>
+                                    <td>
+                                        <a href="@Url.Action("Edit",new{id = Projeto.ProjetoId})" type="button" class="btn btn-warning btn-sm">Editar</a>
+                                        <a target="_blank" href="@Url.Action("Index","ImagensProjeto",new{projetoid = Projeto.ProjetoId})" type="button" class="btn btn-primary btn-sm">Imagens</a>
+                                        <button type="button" class="btn btn-danger btn-sm" onclick="remover('@Projeto.ProjetoId')"><i class="fa fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+
+
+<script>
+    function SalvarOrdenacao()
+    {
+        $('.table > tbody > tr').each(function()
+        {
+            var index = $('.table > tbody > tr').index(this) ;
+
+            $("<input>",{
+                type : "hidden",
+                name: "["+index+"].ProjetoId",
+                value : $(this).attr("id")
+            }).appendTo("#ordenacao");
+
+
+          $("#ordenacao").submit();
+        });
+    }
+
+     function remover(id){
+        if(confirm("tem certeza que deseja deletar?")){
+            $.ajax({
+                url: "@Url.Action("Remover")",
+                data:{
+                    id : id
+                },
+                success: function(){
+                    window.location.reload();
+                },
+                error: function(){
+                    alert("Erro ao excluir");
+                }
+            })
+        }
+    }
+</script>
+}

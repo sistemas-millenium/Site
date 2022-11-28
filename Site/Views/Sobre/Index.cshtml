@@ -1,0 +1,67 @@
+﻿@model List<Infra.Entities.SobreNos>
+
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">SobreNos</h4>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Imagem</th>
+                                <th>Título de chamada</th>
+                                <th>Título Principal</th>
+                                <th>Texto Principal</th>
+                                <th>Título Secundario</th>
+                                <th>Texto Secundario</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var SobreNos in Model)
+                            {
+                                <tr id="@SobreNos.SobreNosId">
+                                    <td><a target="_blank" href="@Url.Action("ObterImagem","Home",new{filename = SobreNos.Caminho})">Abrir imagem</a></td>
+                                    <td>@SobreNos.TituloChamada</td>
+                                    <td>@SobreNos.TituloPrincipal</td>
+                                    <td><textarea  rows="10" cols="40" class="form-control">@SobreNos.TextoPrincipal</textarea></td>
+                                    <td>@SobreNos.TituloSecundario</td>
+                                    <td><textarea  rows="10" cols="40" class="form-control">@SobreNos.TextoSecundario</textarea></td>
+                                    <td>
+                                        <a href="@Url.Action("Edit",new{id = SobreNos.SobreNosId})" type="button" class="btn btn-warning btn-sm">Editar</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+
+
+<script>
+     function remover(id){
+        if(confirm("tem certeza que deseja deletar?")){
+            $.ajax({
+                url: "@Url.Action("Remover")",
+                data:{
+                    id : id
+                },
+                success: function(){
+                    window.location.reload();
+                },
+                error: function(){
+                    alert("Erro ao excluir");
+                }
+            })
+        }
+    }
+</script>
+}

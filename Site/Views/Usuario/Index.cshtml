@@ -1,0 +1,68 @@
+﻿
+<a href="@Url.Action("Create")">Criar Usuário</a>
+<br />
+<br />
+
+<div class="row">
+    <!-- column -->
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Usuários</h4>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>login</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>admin</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts
+{
+
+
+<script>
+    function SalvarOrdenacao()
+    {
+        $('.table > tbody > tr').each(function()
+        {
+            var index = $('.table > tbody > tr').index(this) ;
+
+            $("<input>",{
+                type : "hidden",
+                name: "["+index+"].PublicacaoId",
+                value : $(this).attr("id")
+            }).appendTo("#ordenacao");
+
+
+          $("#ordenacao").submit();
+        });
+    }
+
+     function remover(id){
+        if(confirm("tem certeza que deseja deletar?")){
+            $.ajax({
+                url: "@Url.Action("Remover","Menu")",
+                success: function(){
+                    window.location.reload();
+                },
+                error: function(){
+                    alert("Erro ao excluir");
+                }
+            })
+        }
+    }
+</script>
+}

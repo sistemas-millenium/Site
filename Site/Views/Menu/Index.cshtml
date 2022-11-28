@@ -1,0 +1,89 @@
+﻿@model List<Infra.Entities.Menu>
+
+<a href="@Url.Action("Create")">Criar Menu</a>
+
+<br />
+<br />
+
+<button class="btn btn-success" onclick="SalvarOrdenacao()">Salvar Ordenação</button>
+
+<form id="ordenacao" asp-action="SalvarOrdenacao">
+</form>
+
+<div class="row">
+    <!-- column -->
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Menus</h4>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Endereço</th>
+                                <th>Descrição</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var menu in Model)
+                            {
+                                <tr id="@menu.MenuId"> 
+                                    <td>@menu.Nome</td>
+                                    <td><a href="@menu.Url" target="_blank">abrir</a></td>
+                                    <td>@menu.Descriacao</td>
+                                    <td>
+                                        <a href="@Url.Action("Edit",new{id = menu.MenuId})" type="button" class="btn btn-warning btn-sm">Editar</a>
+                                        <button type="button" class="btn btn-danger btn-sm" onclick="remover('@menu.MenuId')"><i class="fa fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+
+
+<script>
+    function SalvarOrdenacao()
+    {
+        $('.table > tbody > tr').each(function()
+        {
+            var index = $('.table > tbody > tr').index(this) ;
+
+            $("<input>",{
+                type : "hidden",
+                name: "["+index+"].MenuId",
+                value : $(this).attr("id")
+            }).appendTo("#ordenacao");
+
+
+          $("#ordenacao").submit();
+        });
+    }
+
+    function remover(id){
+        if(confirm("tem certeza que deseja deletar?")){
+            $.ajax({
+                url: "@Url.Action("Remover","Menu")",
+                data:{
+                    id : id
+                },
+                success: function(){
+                    window.location.reload();
+                },
+                error: function(){
+                    alert("Erro ao excluir");
+                }
+            })
+        }
+    }
+</script>
+}

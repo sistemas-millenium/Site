@@ -1,0 +1,35 @@
+﻿ <link href="~/dist/css/style.css" rel="stylesheet">
+
+@{
+    Layout = null;
+}
+
+<br />
+<br />
+<br />
+<form style="align-content:center;margin-left:30%" asp-action="Index" method="post">
+  <!-- Email input -->
+  <div class="form-outline mb-4 col-md-6">
+    <input type="text" name="nome" required id="form2Example1" class="form-control" />
+    <label class="form-label" for="form2Example1">Login</label>
+  </div>
+
+  <!-- Password input -->
+  <div class="form-outline mb-4 col-md-6">
+    <input type="password" name="senha" required id="form2Example2" class="form-control" />
+    <label class="form-label" for="form2Example2">Senha</label>
+  </div>
+
+    @if(ViewBag.Error != null)
+    {
+        <p class="text text-danger">@ViewBag.Error</p>
+    }
+    <!-- Submit button -->
+  <button type="submit" class="btn btn-warning btn-block mb-4 col-md-6">Acessar</button>
+
+ 
+</form>
+
+
+    <script src="~/assets/node_modules/jquery/jquery-3.2.1.min.js"></script>
+    <script src="~/dist/js/custom.min.js"></script>

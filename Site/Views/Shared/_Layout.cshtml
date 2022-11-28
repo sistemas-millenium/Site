@@ -1,0 +1,163 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Custom CSS -->
+    <link href="~/dist/css/style.css" rel="stylesheet">
+
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+</head>
+
+<body class="skin-default-dark fixed-layout">
+
+    <div id="main-wrapper">
+
+
+        <header class="topbar">
+            <nav class="navbar top-navbar navbar-expand-md navbar-dark">
+                <div class="navbar-header">
+                    <a class="navbar-brand">
+                        <b>
+                            <img src="~/assets/img/logom2.png" style="max-height:50px;width:100%" alt="homepage" class="dark-logo" />
+                        </b>
+                    </a>
+                </div>
+
+
+                <div class="navbar-collapse">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item hidden-sm-up">
+                            <a class="nav-link nav-toggler waves-effect waves-light"
+                               href="javascript:void(0)"><i class="ti-menu"></i></a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav my-lg-0">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href=""
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Olá @User.Identity?.Name
+                            </a>
+
+                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="@Url.Action("Logout","Login")"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                sair
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+            </nav>
+        </header>
+
+
+        <aside class="left-sidebar">
+            <div class="d-flex no-block nav-text-box align-items-center">
+                <a class="waves-effect waves-dark ml-auto hidden-sm-down" href="javascript:void(0)">
+                    <i class="ti-menu"></i>
+                </a>
+                <a class="nav-toggler waves-effect waves-dark ml-auto hidden-sm-up" href="javascript:void(0)">
+                    <i class="ti-menu ti-close"></i>
+                </a>
+            </div>
+            <div class="scroll-sidebar">
+                <nav class="sidebar-nav">
+                    <ul id="sidebarnav">
+                        <li>
+                            <a class="waves-effect waves-dark" href="@Url.Action("Index","Menu")" aria-expanded="false">
+                                <i class="fa fa-window-minimize" aria-hidden="true"></i><span class="hide-menu">Menu</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="waves-effect waves-dark" href="@Url.Action("Index","Carrousel")" aria-expanded="false">
+                                <i class="fa fa-files-o" aria-hidden="true"></i></i><span class="hide-menu">Carrossel</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="waves-effect waves-dark" href="@Url.Action("Index","Sobre")" aria-expanded="false">
+                                <i class="fa fa-list-alt" aria-hidden="true"></i><span class="hide-menu"></span>Sobre nós
+                            </a>
+                        </li>
+                        <li>
+                            <a class="waves-effect waves-dark" href="@Url.Action("Index","MiniCarrousel")" aria-expanded="false">
+                                <i class="fa fa-clipboard" aria-hidden="true"></i><span class="hide-menu"></span>Mini Carrossel
+                            </a>
+                        </li>
+                        <li>
+                            <a class="waves-effect waves-dark" href="@Url.Action("Index","Dados")" aria-expanded="false">
+                                <i class="fa fa-info-circle" aria-hidden="true"></i><span class="hide-menu"></span>Estatísticas
+                            </a>
+                        </li>
+                        <li>
+                            <a class="waves-effect waves-dark" href="@Url.Action("Index","Projetos")" aria-expanded="false">
+                                <i class="fa fa-handshake-o" aria-hidden="true"></i></i><span class="hide-menu"></span>Projetos
+                            </a>
+                        </li>
+                        <li>
+                            <a class="waves-effect waves-dark" href="@Url.Action("Index","Perguntas")" aria-expanded="false">
+                                <i class="fa fa-question-circle" aria-hidden="true"></i><span class="hide-menu"></span>Perguntas
+                            </a>
+                        </li>
+                        <li>
+                            <a class="waves-effect waves-dark" href="@Url.Action("Index","Usuario")" aria-expanded="false">
+                                <i class="fa fa-user" aria-hidden="true"></i><span class="hide-menu"></span>Usuários
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </aside>
+
+
+        <div class="page-wrapper">
+            <div class="container-fluid">
+                <div class="row page-titles">
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                @RenderBody()
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="~/assets/vendor/jquery.min.js"></script>
+    <script src="~/dist/js/custom.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js" asp-append-version="true"></script>
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js" integrity="sha256-eTyxS0rkjpLEo16uXTS0uVCS4815lc40K2iVpWDvdSY=" crossorigin="anonymous"></script>
+
+    <script>
+        $(document).ready(function ()
+        {
+            $('.table').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.11.3/i18n/pt_pt.json"
+                },
+                sortable : false,
+                order: []
+            });
+        });
+
+         $( ".table" ).sortable
+         ({
+            items: "tr",
+            cursor: 'move',
+            opacity: 0.6
+         });
+    </script>
+
+    @RenderSection("Scripts", required: false)
+
+</body>
+
+</html>

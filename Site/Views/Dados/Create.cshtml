@@ -1,0 +1,62 @@
+﻿@model Infra.Entities.Dado
+
+@{
+    var action = ViewContext.RouteData.Values["action"].ToString();
+}
+
+<div class="col-lg-8 col-xlg-9 col-md-7">
+    <div class="card">
+        <!-- Tab panes -->
+        <div class="card-body">
+            <form class="form-horizontal form-material" enctype="multipart/form-data" method="post" asp-action="@action">
+                @if (ViewBag.Edit)
+                {
+                    <input type="hidden" asp-for="DadoId" value="@Model.DadoId" />
+                    <input type="hidden" asp-for="Caminho" value="@Model.Caminho" />
+                    <input type="hidden" asp-for="Ordenacao" value="@Model.Ordenacao" />
+                    <input type="hidden" name="imagemalterada" id="imagemalterada" value="false" />
+                }
+
+                <div class="form-group">
+                    <label class="col-md-12">Imagem</label>
+                    <div class="col-md-12">
+                        @if (ViewBag.Edit)
+                        {
+                            <input type="file" onchange="$('#imagemalterada').val(true);" accept=".png,.jpg,.ico" name="imagem" placeholder="" class="form-control form-control-line">
+                        }
+                        else
+                        {
+                            <input required type="file" onchange="$('#imagemalterada').val(true);" accept=".png,.jpg,.ico" name="imagem" placeholder="" class="form-control form-control-line">
+                        }
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-12">Título</label>
+                    <div class="col-md-12">
+                        <input type="text" required autocomplete=off asp-for="Titulo" placeholder="" class="form-control form-control-line">
+                    </div>
+                </div>
+
+                 <div class="form-group">
+                    <label class="col-md-12">SubTítulo</label>
+                    <div class="col-md-12">
+                        <input type="text" required autocomplete=off asp-for="Subtitulo" placeholder="" class="form-control form-control-line">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        @if (ViewBag.Edit)
+                        {
+                            <button class="btn btn-warning">Alterar</button>
+                        }
+                        else
+                        {
+                            <button class="btn btn-success">Gravar</button>
+                        }
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
